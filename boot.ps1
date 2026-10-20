@@ -1,11 +1,11 @@
 # boot.ps1 — KeyStone 1-Line Remote Installer & Launcher
 # Command to run on any PC:
-# powershell -ExecutionPolicy Bypass -Command "iwr -useb 'https://raw.githubusercontent.com/ershivshankar/KeyStone/main/boot.ps1' | iex"
+# powershell -ExecutionPolicy Bypass -Command "iwr -useb 'https://raw.githubusercontent.com/ershivshankar/Testing/main/boot.ps1' | iex"
 
 $ErrorActionPreference = "Stop"
 
 $repoOwner  = "ershivshankar"
-$repoName   = "KeyStone"
+$repoName   = "Testing"
 $branch     = "main"
 $installDir = "$env:LOCALAPPDATA\ACEx_Launcher"
 $zipUrl     = "https://raw.githubusercontent.com/$repoOwner/$repoName/$branch/ACEx_Package.zip"
@@ -38,7 +38,6 @@ Remove-Item $tempZip -Force -ErrorAction SilentlyContinue
 Write-Host "[3/4] Configuring environment..." -ForegroundColor Green
 $setupBat = Join-Path $installDir "SETUP_ONCE.bat"
 if (Test-Path $setupBat) {
-    # Run setup
     Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$setupBat`"" -WorkingDirectory $installDir -Wait
 }
 
