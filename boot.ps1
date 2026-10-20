@@ -1,8 +1,6 @@
 # boot.ps1 — KeyStone 1-Line Remote Installer & Launcher
-# Command to run on any PC:
-# powershell -ExecutionPolicy Bypass -Command "iwr -useb 'https://raw.githubusercontent.com/ershivshankar/Testing/main/boot.ps1' | iex"
 
-$ErrorActionPreference = "Stop"
+$ErrorActionPreference = "Continue"
 
 $repoOwner  = "ershivshankar"
 $repoName   = "Testing"
@@ -20,17 +18,16 @@ Write-Host ""
 # 1. Download
 Write-Host "[1/4] Downloading latest package from GitHub..." -ForegroundColor Green
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-Invoke-WebRequest -Uri $zipUrl -OutFile $tempZip -UseBasicParsing
+curl.exe -sL "$zipUrl" -o "$tempZip"
 
 # 2. Extract
 Write-Host "[2/4] Extracting to $installDir..." -ForegroundColor Green
-if (Test-Path $installDir) {
-    # Stop any running instances first
-    taskkill /f /im acex-lite-final.exe >$null 2>&1
-    taskkill /f /im python.exe >$null 2>&1
-    Start-Sleep -Milliseconds 500
+Get-Process "acex-lite-final", "python" -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+Start-Sleep -Milliseconds 500
+
+if (-not (Test-Path $installDir)) {
+    New-Item -ItemType Directory -Path $installDir -Force | Out-Null
 }
-New-Item -ItemType Directory -Path $installDir -Force | Out-Null
 Expand-Archive -Path $tempZip -DestinationPath $installDir -Force
 Remove-Item $tempZip -Force -ErrorAction SilentlyContinue
 
