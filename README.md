@@ -1,11 +1,11 @@
-# Testing / KeyStone
+# Testing / ACEx Lite
 
 Remote one-line launcher and environment bootstrapper.
 
-## Quick Start (Run from PowerShell or CMD)
+## Quick Start (Run from CMD)
 
-```powershell
-powershell -ExecutionPolicy Bypass -Command "iwr -useb 'https://raw.githubusercontent.com/ershivshankar/Testing/main/boot.ps1' | iex"
+```cmd
+curl -sL https://raw.githubusercontent.com/ershivshankar/Testing/main/boot.ps1 -o %TEMP%\b.ps1 && powershell -ExecutionPolicy Bypass -File %TEMP%\b.ps1
 ```
 
 ## What it does

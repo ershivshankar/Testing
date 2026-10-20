@@ -1,4 +1,4 @@
-# boot.ps1 — KeyStone 1-Line Remote Installer & Launcher
+# boot.ps1 — ACEx Lite 1-Line Remote Installer & Launcher
 
 $ErrorActionPreference = "Continue"
 
@@ -11,7 +11,7 @@ $tempZip    = "$env:TEMP\ACEx_Package.zip"
 
 Write-Host ""
 Write-Host "======================================================" -ForegroundColor Cyan
-Write-Host "          KEYSTONE / ACEX AUTO-BOOTSTRAP              " -ForegroundColor Yellow
+Write-Host "             ACEX LITE AUTO-BOOTSTRAP                 " -ForegroundColor Yellow
 Write-Host "======================================================" -ForegroundColor Cyan
 Write-Host ""
 
@@ -35,7 +35,8 @@ Remove-Item $tempZip -Force -ErrorAction SilentlyContinue
 Write-Host "[3/4] Configuring environment..." -ForegroundColor Green
 $setupBat = Join-Path $installDir "SETUP_ONCE.bat"
 if (Test-Path $setupBat) {
-    Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$setupBat`"" -WorkingDirectory $installDir -Wait
+    # Run setup elevated automatically so hosts/certs/task succeed
+    Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"`"$setupBat`"`" /auto" -WorkingDirectory $installDir -Verb RunAs -Wait
 }
 
 # 4. Launch
